@@ -1,7 +1,7 @@
 import React from "react";
 import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend"; // Backend untuk drag-and-drop
-import CardStack from "./components/cardstack"; // Komponen stack kartu
+import { HTML5Backend } from "react-dnd-html5-backend";
+import CardStack from "./components/cardstack"; 
 
 const App = () => {
   return (

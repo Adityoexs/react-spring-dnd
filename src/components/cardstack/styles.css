@@ -1,46 +1,43 @@
 @import "tailwindcss";
 
-/* Container untuk tumpukan kartu */
 .stack-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f4f4f9; /* Warna latar belakang */
+  background-color: #f4f4f9; 
   position: relative;
 }
 
-/* Kartu tumpukan */
 .card-stack {
   position: relative;
   display: flex;
-  flex-direction: column-reverse; /* Agar kartu muncul dari bawah */
+  flex-direction: column-reverse; 
   align-items: center;
 }
 
-/* Gaya Kartu */
 .card-stack > div {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  will-change: transform, box-shadow; /* Mengoptimalkan performa saat drag */
+  will-change: transform, box-shadow; 
 }
 
-/* Menambahkan bayangan dan efek transformasi saat drag */
+
 .card-stack > div:hover {
-  transform: scale(1.05); /* Efek saat hover */
+  transform: scale(1.05); 
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Gaya Kartu dengan Shape Circle */
+
 .card-stack .circle {
   border-radius: 50%;
 }
 
-/* Gaya Kartu dengan Shape Square */
+
 .card-stack .square {
   border-radius: 10px;
 }
 
-/* Gaya Kartu dengan Shape Hexagon */
+
 .card-stack .hexagon {
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }

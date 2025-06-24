@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DndContext, useDraggable } from "@dnd-kit/core";
 import { useSpring, animated } from "react-spring";
 
-// Card Component
+
 const Card = ({
   color,
   shape,
@@ -15,25 +15,25 @@ const Card = ({
   setRemoved,
   position,
   onDrag,
-  isDragging, // Track the drag state for each card
+  isDragging,
 }) => {
   const { setNodeRef, attributes, listeners, isDragging: isCardDragging } = useDraggable({
     id,
   });
 
-  // Spring properties for the card
+
   const springProps = useSpring({
-    opacity: isRemoved ? 0 : 1, // Fade out when removed
+    opacity: isRemoved ? 0 : 1, 
     transform: isCardDragging
-      ? "scale(1.5)" // Enlarge card when dragging
-      : `rotate(${rotateDeg}deg)`, // Apply reduced rotation for non-dragging state
-    left: position.x, // Dynamic position during drag
-    config: { tension: 220, friction: 30 }, // Smoother drag effect
+      ? "scale(1.5)"
+      : `rotate(${rotateDeg}deg)`,
+    left: position.x,
+    config: { tension: 220, friction: 30 },
   });
 
-  // After the animation, remove the card from the list
+  
   if (isRemoved) {
-    setRemoved(true); // Mark the card for removal after animation
+    setRemoved(true); 
   }
 
   return (
@@ -63,7 +63,7 @@ const Card = ({
   );
 };
 
-// Main Component for Stacked Cards
+
 const StackCards = () => {
   const initialCards = [
     {
@@ -104,19 +104,19 @@ const StackCards = () => {
   ];
 
   const [cards, setCards] = useState(initialCards);
-  const [removedIndex, setRemovedIndex] = useState(null); // Only track the removed card index
+  const [removedIndex, setRemovedIndex] = useState(null);
   const [title, setTitle] = useState(
     "Behind The Scenes Collaboration Secrets: Design X Engineering"
   );
 
   const [positions, setPositions] = useState(
-    initialCards.map(() => ({ x: 0, y: 0 })) // Initial positions for each card
+    initialCards.map(() => ({ x: 0, y: 0 })) 
   );
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
 
-    // If the item is dropped at the same place, do nothing
+    
     if (active.id === over?.id) return;
 
     const droppedCard = cards.find((card) => card.id === active.id);
@@ -125,10 +125,10 @@ const StackCards = () => {
 
     setTitle(droppedCard.title);
 
-    // Reset positions after the drag and drop action
-    setPositions(initialCards.map(() => ({ x: 0, y: 0 })));  // Reset all card positions
+    
+    setPositions(initialCards.map(() => ({ x: 0, y: 0 }))); 
 
-    // After a 5-second delay, reset the title and restore the card to the list
+    
     setTimeout(() => {
       setCards((prevCards) => [...prevCards, droppedCard]);
       setTitle("Behind The Scenes Collaboration Secrets: Design X Engineering");
@@ -142,7 +142,7 @@ const StackCards = () => {
     const draggedCardIndex = cards.findIndex((card) => card.id === active.id);
 
     if (draggedCardIndex >= 0) {
-      // Only update position of the dragged card
+      
       newPositions[draggedCardIndex] = {
         x: newPositions[draggedCardIndex].x + delta.x, 
         y: newPositions[draggedCardIndex].y + delta.y,
@@ -150,9 +150,9 @@ const StackCards = () => {
       setPositions(newPositions);
     }
 
-    // Only remove the dragged card if moved past threshold
+    
     if (newPositions[draggedCardIndex].x < -200 || newPositions[draggedCardIndex].x > 600) {
-      setRemovedIndex(draggedCardIndex); // Remove only the dragged card
+      setRemovedIndex(draggedCardIndex); 
     }
   };
 
@@ -175,7 +175,7 @@ const StackCards = () => {
           <DndContext onDragEnd={handleDragEnd} onDragMove={handleDragMove}>
             <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-1 items-center gap-6">
               {cards.map((card, index) => {
-                const rotateDeg = (index % 2 === 0 ? 1 : -1) * (index + 1); // Adjusted rotation
+                const rotateDeg = (index % 2 === 0 ? 1 : -1) * (index + 1); 
                 return (
                   <Card
                     key={card.id}
@@ -186,11 +186,11 @@ const StackCards = () => {
                     zIndex={cards.length - index}
                     rotateDeg={rotateDeg}
                     text={card.text}
-                    isRemoved={removedIndex === index} // Only the removed card will be marked as removed
-                    setRemoved={() => setRemovedIndex(null)} // Reset removal state
-                    position={positions[index]} // Position passed to card
-                    onDrag={handleDragMove} // Handle drag movement
-                    isDragging={removedIndex === index} // Track drag state for each card
+                    isRemoved={removedIndex === index} 
+                    setRemoved={() => setRemovedIndex(null)} 
+                    position={positions[index]} 
+                    onDrag={handleDragMove}
+                    isDragging={removedIndex === index} 
                   />
                 );
               })}
