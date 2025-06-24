@@ -144,8 +144,8 @@ const StackCards = () => {
     if (draggedCardIndex >= 0) {
       
       newPositions[draggedCardIndex] = {
-        x: newPositions[draggedCardIndex].x + delta.x, 
-        y: newPositions[draggedCardIndex].y + delta.y,
+        x: newPositions[draggedCardIndex].x + delta.x*0.1, 
+        y: newPositions[draggedCardIndex].y + delta.y*0.1,
       };
       setPositions(newPositions);
     }
